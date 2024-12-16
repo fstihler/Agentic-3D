@@ -8,6 +8,7 @@ packages = [{include = "agentic3d", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+autogen-agentchat = ">=0.2,<1.0"
 
 
 [build-system]
