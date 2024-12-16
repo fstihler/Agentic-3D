@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "agentic3d"
 version = "0.1.0"
-description = ""
+description = "AI Agent that develops OpenSCAD code and rendering based on initial object description, and iterative feedback improvements."
 authors = ["Reet Mishra <reet.mishra@berkeley.edu>"]
 readme = "README.md"
 packages = [{include = "agentic3d", from = "src"}]
