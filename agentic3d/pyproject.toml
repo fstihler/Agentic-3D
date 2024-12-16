@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "agentic3d"
+version = "0.1.0"
+description = ""
+authors = ["Reet Mishra <reet.mishra@berkeley.edu>"]
+readme = "README.md"
+packages = [{include = "agentic3d", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
