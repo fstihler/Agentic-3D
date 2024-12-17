@@ -149,8 +149,10 @@ class Workflow:
         dynamic_code = dynamic_code_all.summary
         img_filepath = render_scene(
             dynamic_code_all.summary,
-            f"workflow_scene_{iteration}.scad",
-            f"workflow_scene_{iteration}.png",
+            f"workflow_{self.get_id()}",
+            f"workflow_{self.get_id()}",
+            f"workflow_{self.get_id()}_scene_{iteration}.scad",
+            f"workflow_{self.get_id()}_scene_{iteration}.png",
         )
 
         feedback = initial_prompt
@@ -190,9 +192,12 @@ class Workflow:
             dynamic_code = chat_history[1].summary
             img_filepath = render_scene(
                 dynamic_code,
-                f"workflow_scene_{iteration}.scad",
-                f"workflow_scene_{iteration}.png",
+                f"workflow_{self.get_id()}",
+                f"workflow_{self.get_id()}",
+                f"workflow_{self.get_id()}_scene_{iteration}.scad",
+                f"workflow_{self.get_id()}_scene_{iteration}.png",
             )
+
             print(f"All {iteration} iterations completed.")
         return chat_history
 

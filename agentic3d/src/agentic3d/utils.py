@@ -27,7 +27,7 @@ def combine_scad_code(dynamic_code: str) -> str:
     return combined_code
 
 
-def save_openscad_code(scad_code: str, filename: str) -> str:
+def save_openscad_code(scad_code: str, scad_dir: str, scad_filename: str) -> str:
     """
     Save the provided OpenSCAD code to a specified .scad file.
     Args:
@@ -36,23 +36,31 @@ def save_openscad_code(scad_code: str, filename: str) -> str:
     Returns:
         str: The filepath where the OpenSCAD code was saved.
     """
-    os.makedirs(MODELS_DIR, exist_ok=True)
 
-    filepath = os.path.join(MODELS_DIR, filename)
-    print(f"[DEBUG] Saving OpenSCAD code to {filepath}")
+    openscad_code_dir = os.path.join(MODELS_DIR, scad_dir)
+    os.makedirs(openscad_code_dir, exist_ok=True)
 
-    with open(filepath, "w") as f:
+    scad_filepath = os.path.join(openscad_code_dir, scad_filename)
+
+    print(f"[DEBUG] Saving OpenSCAD code to {scad_filepath}")
+
+    with open(scad_filepath, "w") as f:
         f.write(scad_code)
-    print(f"[DEBUG] OpenSCAD code saved successfully at {filepath}")
+    print(f"[DEBUG] OpenSCAD code saved successfully at {scad_filepath}")
 
-    return filepath
+    return scad_filepath
 
 
-def render_model(scad_filepath: str, output_image_file: str) -> str:
+def render_model(
+    scad_filepath: str,
+    output_image_dir: str,
+    output_image_file: str,
+) -> str:
     """
     Renders a 3D model from an OpenSCAD file and saves it as an image.
     Args:
         scad_filepath (str): The file path to the OpenSCAD (.scad) file.
+        output_image_dir (str): The directory to save the output image file.
         output_image_file (str): The desired output image file name.
     Returns:
         str: The file path to the rendered image.
@@ -62,10 +70,10 @@ def render_model(scad_filepath: str, output_image_file: str) -> str:
     Example:
         rendered_image = render_model("path/to/model.scad", "output_image.png")
     """
+    rendered_image_dir = os.path.join(RENDERS_DIR, output_image_dir)
+    os.makedirs(rendered_image_dir, exist_ok=True)
 
-    os.makedirs(RENDERS_DIR, exist_ok=True)
-
-    rendered_image_path = os.path.join(RENDERS_DIR, output_image_file)
+    rendered_image_path = os.path.join(rendered_image_dir, output_image_file)
 
     cmd = [
         "openscad",
@@ -95,6 +103,8 @@ def render_model(scad_filepath: str, output_image_file: str) -> str:
 
 def render_scene(
     scad_code: str,
+    scad_dir: str = "1",
+    output_image_dir: str = "1",
     scad_filename: str = "scene.scad",
     output_image_file: str = "scene.png",
 ) -> str:
@@ -108,8 +118,8 @@ def render_scene(
         str: The file path of the rendered image.
     """
     combined_scad_code = combine_scad_code(scad_code)
-    scad_filepath = save_openscad_code(combined_scad_code, scad_filename)
-    output_image_path = render_model(scad_filepath, output_image_file)
+    scad_filepath = save_openscad_code(combined_scad_code, scad_dir, scad_filename)
+    output_image_path = render_model(scad_filepath, output_image_dir, output_image_file)
 
     print("[DEBUG] Rendering process completed.")
     return output_image_path
@@ -120,5 +130,6 @@ def remove_cache():
     Remove the cache database Autogen creates.
     """
     print("[DEBUG] Removing cache database.")
-    os.remove(CACHE_DB)
+    if os.path.exists(CACHE_DB):
+        os.remove(CACHE_DB)
     print("[DEBUG] Cache database removed successfully.")

@@ -11,7 +11,11 @@ python = ">=3.11,<3.14"
 autogen-agentchat = ">=0.2,<1.0"
 pyautogen = "^0.5.3"
 ipykernel = "^6.29.5"
+jupyter = "^1.1.1"
 
+[virtualenvs]
+create = true
+in-project = true
 
 [build-system]
 requires = ["poetry-core"]
