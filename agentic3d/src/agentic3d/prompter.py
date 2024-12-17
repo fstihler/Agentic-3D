@@ -1,5 +1,5 @@
-from ._constants import DEFAULT_USER_DESCRIPTION
-from .strategy import *
+from agentic3d._constants import DEFAULT_USER_DESCRIPTION
+from agentic3d.strategy import *
 
 
 class Prompter:

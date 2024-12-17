@@ -1,9 +1,9 @@
-from autogen import AssistantAgent, ConversableAgent, UserProxyAgent
+from autogen import ConversableAgent, UserProxyAgent
 from autogen.agentchat.contrib.multimodal_conversable_agent import (
     MultimodalConversableAgent,
 )
 
-from ._constants import LLM_CONFIG, NUM_VERSIONS
+from agentic3d._constants import LLM_CONFIG, NUM_VERSIONS
 
 
 class AgentBuilder:

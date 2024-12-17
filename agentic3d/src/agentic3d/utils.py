@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from ._constants import (
+from agentic3d._constants import (
     CACHE_DB,
     IMAGE_SIZE,
     MODELS_DIR,

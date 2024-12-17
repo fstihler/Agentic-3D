@@ -1,4 +1,4 @@
-from ._constants import (
+from agentic3d._constants import (
     DEFAULT_CODER_AGENT_SYSTEM_MESSAGE,
     DEFAULT_COMMANDER_AGENT_SYSTEM_MESSAGE,
     DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE,
@@ -6,10 +6,9 @@ from ._constants import (
     DEFAULT_OPENSCAD_GENERATOR_AGENT_SYSTEM_MESSAGE,
     DEFAULT_PROMPT_IMPROVER_AGENT_SYSTEM_MESSAGE,
     MAX_ITERATIONS,
-    NUM_VERSIONS,
 )
-from .agents import AgentBuilder
-from .utils import remove_cache, render_scene
+from agentic3d.agents import AgentBuilder
+from agentic3d.utils import remove_cache, render_scene
 
 
 # TODO: could add tqdm for progress bar per iteration
