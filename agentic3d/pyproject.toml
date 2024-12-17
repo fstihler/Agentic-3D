@@ -10,6 +10,7 @@ packages = [{include = "agentic3d", from = "src"}]
 python = ">=3.11,<3.14"
 autogen-agentchat = ">=0.2,<1.0"
 pyautogen = "^0.5.3"
+ipykernel = "^6.29.5"
 
 
 [build-system]
