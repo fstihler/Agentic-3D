@@ -6,9 +6,11 @@ RANDOM_SEED = 42
 # Scene description
 DEFAULT_USER_DESCRIPTION = "designer chair"
 
-# Max iterations
+# Max iterations per workflow
 MAX_ITERATIONS = 10
-NUM_VERSIONS = 10
+
+# Number of workflows per object
+NUM_WORKFLOWS = 3
 
 # Rendering settings
 IMAGE_SIZE = (800, 600)  # Width, Height in pixels
@@ -55,6 +57,22 @@ DEFAULT_FEEDBACK_AGENT_SYSTEM_MESSAGE = """You are an image feedback agent.
             'Initial User Description': 
             'Feedback:'
             """
+
+DEFAULT_EVALUATOR_AGENT_SYSTEM_MESSAGE = """You are an image evaluator feedback agent.
+            Your role is to examine rendered images (from OpenSCAD code) and confirm whether they match the user’s initial description 
+            Rate each image on a scale of 1 to 10 for how well each rendered image represents the intended description.
+            A rating of 1 means the render DOES NOT match the scene description and is very poor. 
+            A rating of 5 means the render DOES match the intended scene description but it is not very good. 
+            A rating of 10 means the render perfectly matches the intended scene description and 
+            the render does not need to be altered at all.
+            Give your feedback in instructive bullets. 
+            Start with
+            'Initial User Description':
+            'Feedback:'
+            'Rating:'
+            """
+
+
 DEFAULT_COMMANDER_AGENT_SYSTEM_MESSAGE = """ You are a CAD agent. Help me render openSCAD code.
     If you are provided with OpenSCAD code, suggest a tool call to render the OpenSCAD code.
     """
@@ -91,3 +109,44 @@ DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE = """
     If the image and the user description do match, respond only with 'TERMINATE_MATCH'.
     Start with 'Feedback:'
     """
+
+EVAL_OBJECTS_DICT = {
+    "easy": [
+        "a chair with four legs",
+        "a table with four legs",
+        "a pyramid",
+        "a circular bowl",
+        "a cylindrical bottle",
+    ],
+    "medium": [
+        "a curved vase",
+        "a candle with a flame",
+        "a mug with a handle",
+        "a desk lamp",
+        "a wine glass",
+    ],
+    "hard": [
+        "a car with four wheels",
+        "a spiral staircase",
+        "a cathedral",
+        "a pair of eye glasses",
+        "a wrist watch",
+    ],
+}
+EVAL_OBJECTS_LIST = [
+    "a chair with four legs",
+    "a table with four legs",
+    "a pyramid",
+    "a circular bowl",
+    "a cylindrical bottle",
+    "a curved vase",
+    "a candle with a flame",
+    "a mug with a handle",
+    "a desk lamp",
+    "a wine glass",
+    "a car with four wheels",
+    "a spiral staircase",
+    "a cathedral",
+    "a pair of eye glasses",
+    "a wrist watch",
+]

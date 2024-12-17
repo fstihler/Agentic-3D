@@ -1,7 +1,7 @@
 from agentic3d._constants import (
-    DEFAULT_CODER_AGENT_SYSTEM_MESSAGE,
-    DEFAULT_COMMANDER_AGENT_SYSTEM_MESSAGE,
-    DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE,
+    # DEFAULT_CODER_AGENT_SYSTEM_MESSAGE,
+    # DEFAULT_COMMANDER_AGENT_SYSTEM_MESSAGE,
+    # DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE,
     DEFAULT_FEEDBACK_AGENT_SYSTEM_MESSAGE,
     DEFAULT_OPENSCAD_GENERATOR_AGENT_SYSTEM_MESSAGE,
     DEFAULT_PROMPT_IMPROVER_AGENT_SYSTEM_MESSAGE,
@@ -18,18 +18,17 @@ class Workflow:
     based on user feedback.
     """
 
-    id_num = 0
-
     def __init__(
         self,
         prompt: str,
+        name: str = "workflow_0",
         new_implementation: bool = False,
         openscad_generator_system_message: str = DEFAULT_OPENSCAD_GENERATOR_AGENT_SYSTEM_MESSAGE,
         feedback_system_message: str = DEFAULT_FEEDBACK_AGENT_SYSTEM_MESSAGE,
-        commander_system_message: str = DEFAULT_COMMANDER_AGENT_SYSTEM_MESSAGE,
         prompt_improver_system_message: str = DEFAULT_PROMPT_IMPROVER_AGENT_SYSTEM_MESSAGE,
-        coder_system_message: str = DEFAULT_CODER_AGENT_SYSTEM_MESSAGE,
-        critic_system_message: str = DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE,
+        # commander_system_message: str = DEFAULT_COMMANDER_AGENT_SYSTEM_MESSAGE,
+        # coder_system_message: str = DEFAULT_CODER_AGENT_SYSTEM_MESSAGE,
+        # critic_system_message: str = DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE,
     ):
         """
         Initialize the Workflow with the given prompt and system messages.
@@ -39,14 +38,14 @@ class Workflow:
             openscad_generator_system_message (str, optional): System message for the OpenSCAD generator agent. Defaults to DEFAULT_OPENSCAD_GENERATOR_AGENT_SYSTEM_MESSAGE.
             feedback_system_message (str, optional): System message for the feedback agent. Defaults to DEFAULT_FEEDBACK_AGENT_SYSTEM_MESSAGE.
         """
-        self.id_num += 1
+        self.workflow_name = name
         self.initial_prompt = prompt
         self.openscad_generator_system_message = openscad_generator_system_message
         self.feedback_system_message = feedback_system_message
-        self.commander_system_message = commander_system_message
         self.prompt_improver_system_message = prompt_improver_system_message
-        self.coder_system_message = coder_system_message
-        self.critic_system_message = critic_system_message
+        # self.commander_system_message = commander_system_message
+        # self.coder_system_message = coder_system_message
+        # self.critic_system_message = critic_system_message
 
         if new_implementation:
             self.all_agents = self.build_agents(True)
@@ -64,12 +63,13 @@ class Workflow:
             ValueError: If no agents are retrieved.
         """
         ab = AgentBuilder(
+            False,
             self.openscad_generator_system_message,
             self.feedback_system_message,
             self.prompt_improver_system_message,
-            self.commander_system_message,
-            self.coder_system_message,
-            self.critic_system_message,
+            # self.commander_system_message,
+            # self.coder_system_message,
+            # self.critic_system_message,
         )
         if new_implementation:
             pass
@@ -85,13 +85,13 @@ class Workflow:
                 )
             return ab.get_all_agents_dict()
 
-    def get_id(self) -> int:
+    def get_workflow_name(self) -> int:
         """
-        Retrieve the unique identifier for the instance.
+        Retrieve the unique name for the instance. This is the same name as the folder for rendering.
         Returns:
-            int: The unique identifier of the instance.
+            int: The unique name of the instance.
         """
-        return self.id_num
+        return self.workflow_name
 
     # TODO: can change all_agents to dictionary with keys as agent names for more clarity
     def run(
@@ -149,10 +149,10 @@ class Workflow:
         dynamic_code = dynamic_code_all.summary
         img_filepath = render_scene(
             dynamic_code_all.summary,
-            f"workflow_{self.get_id()}",
-            f"workflow_{self.get_id()}",
-            f"workflow_{self.get_id()}_scene_{iteration}.scad",
-            f"workflow_{self.get_id()}_scene_{iteration}.png",
+            f"{self.get_workflow_name()}",
+            f"{self.get_workflow_name()}",
+            f"{self.get_workflow_name()}_scene_{iteration}.scad",
+            f"{self.get_workflow_name()}_scene_{iteration}.png",
         )
 
         feedback = initial_prompt
@@ -192,10 +192,10 @@ class Workflow:
             dynamic_code = chat_history[1].summary
             img_filepath = render_scene(
                 dynamic_code,
-                f"workflow_{self.get_id()}",
-                f"workflow_{self.get_id()}",
-                f"workflow_{self.get_id()}_scene_{iteration}.scad",
-                f"workflow_{self.get_id()}_scene_{iteration}.png",
+                f"{self.get_workflow_name()}",
+                f"{self.get_workflow_name()}",
+                f"{self.get_workflow_name()}_scene_{iteration}.scad",
+                f"{self.get_workflow_name()}_scene_{iteration}.png",
             )
 
             print(f"All {iteration} iterations completed.")
