@@ -8,25 +8,33 @@ from agentic3d._constants import LLM_CONFIG
 
 class AgentBuilder:
     """
-    A class used to build and manage different types of agents.
-    Methods
-    -------
-    __init__(generator_system_message: str, feedback_system_message: str)
-        Initializes the AgentBuilder with the specified system messages for the generator
-        and feedback agents.
-    build_user_designer_agent()
-        Builds and returns a UserProxyAgent configured as a designer agent.
-    build_openscad_generator_agent(system_message: str)
-        Builds and returns a ConversableAgent configured as an OpenSCAD generator agent
-        with the provided system message.
-    build_feedback_agent(system_message: str)
-        Builds and returns a MultimodalConversableAgent configured as a feedback agent
-        with the provided system message.
-    print_agents()
-        Prints the names of all the agents managed by the AgentBuilder.
+    AgentBuilder is a class responsible for constructing and managing various agents used in the system.
+    These agents include a designer agent, an OpenSCAD generator agent, a feedback agent, a prompt improver agent, and an evaluator agent.
+    The class provides methods to build each type of agent and to retrieve all agents as a list or dictionary.
+    Attributes:
+        all_agents (list): A list of all agents created by the AgentBuilder.
+        all_agents_dict (dict): A dictionary mapping agent names to their respective agent instances.
+    Methods:
+        __init__(eval: bool, generator_system_message: str, feedback_system_message: str, prompt_improver_system_message: str):
+            Initializes the AgentBuilder with the provided system messages for the generator and feedback agents.
+        build_designer_agent() -> UserProxyAgent:
+            Builds and returns a UserProxyAgent named as the designer. This is the user who has a description they want to
+            build using OpenSCAD. Acts as a commander agent.
+        build_openscad_generator_agent(system_message: str) -> ConversableAgent:
+            Builds and returns a ConversableAgent with the role of generating OpenSCAD code given a prompt.
+        build_feedback_agent(system_message: str) -> MultimodalConversableAgent:
+            Builds and returns a MultimodalConversableAgent with the role of providing feedback on the generated OpenSCAD
+            rendered image and initial prompt as well as previous feedback.
+        build_prompt_improver_agent(system_message: str) -> ConversableAgent:
+            Builds and returns a ConversableAgent with the role of improving the given prompt for 3D modeling.
+        build_evaluator_agent(system_message: str) -> MultimodalConversableAgent:
+            Builds and returns a MultimodalConversableAgent with the role of an evaluator agent.
+        get_all_agents() -> list:
+            Returns a list of all agents managed by the AgentBuilder.
+        get_all_agents_dict() -> dict:
+            Returns a dictionary of all agents managed by the AgentBuilder.
+        print_agents() -> None:
     """
-
-    # Need to make sure you always have systme messages if eval is False
 
     def __init__(
         self,
@@ -34,15 +42,14 @@ class AgentBuilder:
         generator_system_message: str = None,
         feedback_system_message: str = None,
         prompt_improver_system_message: str = None,
-        # commander_system_message: str,
-        # coder_system_message: str,
-        # critic_system_message: str,
     ):
         """
         Initializes the agent system with the provided system messages for the generator and feedback agents.
+        If eval is set to True, the AgentBuilder will only not build any of these agents at instantiation.
         Args:
             generator_system_message (str): The system message to be used by the OpenSCAD generator agent.
             feedback_system_message (str): The system message to be used by the feedback agent.
+            prompt_improver_system_message (str): The system message to be used by the prompt improver agent.
         """
 
         if not eval:
@@ -59,17 +66,11 @@ class AgentBuilder:
                 "feedback_agent": self.all_agents[2],
                 "prompt_improver_agent": self.all_agents[3],
             }
-        # self.all_new_agents = [
-        #     self.build_commander_agent(commander_system_message),
-        #     self.build_prompt_improver_agent(prompt_improver_system_message),
-        #     self.build_coder_agent(coder_system_message),
-        #     self.build_critic_agent(critic_system_message),
-        # ]
 
     def build_designer_agent(self) -> UserProxyAgent:
         """
         Builds and returns a UserProxyAgent named as a designer.
-        This is essentially the user who has a description they want to build using OpenSCAD.
+        This is essentially the user who has a description for they want to build using OpenSCAD.
         Returns:
             UserProxyAgent: The configured designer agent.
         """
@@ -122,6 +123,14 @@ class AgentBuilder:
         return feedbackAgent
 
     def build_prompt_improver_agent(self, system_message: str) -> ConversableAgent:
+        """
+        Builds and returns a ConversableAgent with the role of a prompt improver agent.
+        This agent is responsible for improving the given prompt for 3D modeling as defined in the provided system message.
+        Args:
+            system_message (str): The system message to be used by the prompt improver agent.
+        Returns:
+            ConversableAgent: The configured prompt improver agent.
+        """
         promptImproverAgent = ConversableAgent(
             name="prompt_improver",
             system_message=system_message,
@@ -144,37 +153,6 @@ class AgentBuilder:
             max_consecutive_auto_reply=1,
         )
         return evaluatorAgent
-
-    # def build_commander_agent(self, system_message: str) -> AssistantAgent:
-    #     commanderAgent = AssistantAgent(
-    #         name="commander",
-    #         llm_config=LLM_CONFIG,
-    #         system_message=system_message,
-    #         human_input_mode="NEVER",
-    #         max_consecutive_auto_reply=10,
-    #     )
-    #     return commanderAgent
-
-    # def build_coder_agent(self, system_message: str) -> AssistantAgent:
-    #     coderAgent = AssistantAgent(
-    #         name="Coder",
-    #         system_message=system_message,
-    #         llm_config=LLM_CONFIG,
-    #     )
-    #     return coderAgent
-
-    # def build_critic_agent(self, system_message: str) -> MultimodalConversableAgent:
-    #     criticAgent = MultimodalConversableAgent(
-    #         name="Critics",
-    #         system_message=system_message,
-    #         llm_config=LLM_CONFIG,
-    #         human_input_mode="NEVER",
-    #         max_consecutive_auto_reply=NUM_VERSIONS,
-    #     )
-    #     return criticAgent
-
-    # def get_all_new_agents(self) -> list:
-    #     return self.all_new_agents
 
     def get_all_agents(self) -> list:
         return self.all_agents

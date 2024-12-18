@@ -1,10 +1,10 @@
+from autogen import ConversableAgent
+
 from agentic3d._constants import (
     DEFAULT_EVALUATOR_AGENT_SYSTEM_MESSAGE,
     MAX_ITERATIONS,
-    NUM_WORKFLOWS,
 )
 from agentic3d.agents import AgentBuilder
-from agentic3d.prompter import Prompter
 from agentic3d.utils import remove_cache
 
 
@@ -14,6 +14,13 @@ class Evaluator:
         agentic3d_objects: dict,
         evaluator_system_message: str = DEFAULT_EVALUATOR_AGENT_SYSTEM_MESSAGE,
     ):
+        """
+        Initializes the Evaluator class with the provided agentic3d objects and system message for the evaluator agent.
+        Args:
+            agentic3d_objects (dict): A dictionary containing the agentic3d objects categorized as easy, medium, and hard.
+            evaluator_system_message (str, optional): The system message to be used by the evaluator agent. Defaults to DEFAULT_EVALUATOR_AGENT_SYSTEM_MESSAGE.
+        """
+
         self.agentic3d_objects = agentic3d_objects
         self.easy_objects = agentic3d_objects["easy"]
         self.medium_objects = agentic3d_objects["medium"]
@@ -26,6 +33,14 @@ class Evaluator:
         )
 
     def build_agent(self, is_user: bool = False, system_message: str = None):
+        """
+        Builds and returns an agent based on the provided parameters.
+        Args:
+            is_user (bool, optional): If True, builds a designer agent. Defaults to False, to build an evaluator agent.
+            system_message (str, optional): The system message to be used by the agent. Defaults to None.
+        Returns:
+            Autogen Agent: either UserProxyAgent or ConversableAgent
+        """
         ab = AgentBuilder(eval=True)
         if is_user:
             designer_agent = ab.build_designer_agent()
@@ -52,9 +67,6 @@ class Evaluator:
 
         if clear_cache:
             remove_cache()
-
-        # user_desc = "chair with four legs"
-        # img_filepath = "../renders/workflow_1/workflow_1_scene_0.png"
 
         evaluation_feedback = self.designerAgent.initiate_chat(
             recipient=self.evaluatorAgent,
@@ -88,7 +100,7 @@ class Evaluator:
         img_workflow_dir: str,
         clear_cache: bool = False,
         verbose: bool = False,
-    ):
+    ) -> dict:
         """
         Evaluates all objects based on intended user description.
         Args:
@@ -119,7 +131,7 @@ class Evaluator:
         prompt_workflow_dict: dict,
         clear_cache: bool = False,
         verbose: bool = False,
-    ):
+    ) -> dict:
         """
         Evaluates all objects based on intended user description.
         Args:

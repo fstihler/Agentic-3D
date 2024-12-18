@@ -110,6 +110,7 @@ DEFAULT_CRITIC_AGENT_SYSTEM_MESSAGE = """
     Start with 'Feedback:'
     """
 
+# EVALUATION OBJECTS
 EVAL_OBJECTS_DICT = {
     "easy": [
         "a chair with four legs",

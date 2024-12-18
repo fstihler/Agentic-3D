@@ -2,7 +2,7 @@
 name = "agentic3d"
 version = "0.1.0"
 description = "AI Agent that develops OpenSCAD code and rendering based on initial object description, and iterative feedback improvements."
-authors = ["Reet Mishra <reet.mishra@berkeley.edu>"]
+authors = ["Moritz Rietschel <rietschel@berkeley.edu>","Reet Mishra <reet.mishra@berkeley.edu>", "Sammie Shenon <sshenon@berkeley.edu>", "Frederik Stihler <frederik.stihler@berkeley.edu>"]
 readme = "README.md"
 packages = [{include = "agentic3d", from = "src"}]
 
