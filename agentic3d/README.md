@@ -4,10 +4,10 @@
 
 This project investigates the application of Large Language Models (LLMs) as agents to bridge textual and visual modalities, focusing on the generation and refinement of 3D models from textual descriptions. Using OpenSCAD, a code-based 3D modeling platform, the system translates text into code, which is then rendered into visual representations for evaluation. A modality-switching feedback loop integrates Vision-Language Models (VLMs) to analyze these renderings, enabling iterative refinement of the generated models. The workflow is orchestrated by a Commander Agent, coordinating multiple specialized agents to ensure seamless interaction between components. Performance evaluation across three object complexity levels (low, medium, high) demonstrates that the system excels at generating and refining low-complexity models, with diminishing performance as object complexity increases. Metrics such as the mean maximum quality score and the mean improvement score highlight the system’s effectiveness in refining simpler models. These findings underscore the potential of LLMs as versatile agents for bridging modalities and generating 3D content.
 
-#### Authors: 
-Moritz Rietschel <rietschel@berkeley.edu>
-Reet Mishra <reet.mishra@berkeley.edu>
-Sammie Shenon <sshenon@berkeley.edu>
+**#####** Authors
+Moritz Rietschel <rietschel@berkeley.edu>,
+Reet Mishra <reet.mishra@berkeley.edu>,
+Sammie Shenon <sshenon@berkeley.edu>,
 Frederik Stihler <frederik.stihler@berkeley.edu>
 
 ## Installation
