@@ -18,7 +18,7 @@ Before installing agentic3d, make sure you have `poetry` <https://python-poetry.
     ```bash
     poetry -V
     ```
-- This version currently runs with with ChatGPT4o-mini model. Make sure you have an account, credits and an OPENAI_API_KEY for this model stored in your path. This package will use the key from your system's path. Follow these instructions for best practices <https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety>
+- This version currently runs with with ChatGPT-4o Mini model. Make sure you have an account, credits and an OPENAI_API_KEY for this model stored in your path. This package will use the key from your system's path. Follow these instructions for best practices <https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety>
 
 Now, to install the `agentic3d` package, follow these steps:
 
