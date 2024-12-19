@@ -15,12 +15,14 @@ Frederik Stihler <frederik.stihler@berkeley.edu>
 Before installing agentic3d, make sure you have `poetry` <https://python-poetry.org/docs> installed.
 
 You can check this by running:
+
     ```bash
     > poetry -V
     Poetry (version 1.8.3)
     ```
+    
 
-Now, to install agentic3d package, follow these steps:
+Now, to install the `agentic3d` package, follow these steps:
 
 1. Clone the repository:
     ```bash
@@ -174,7 +176,8 @@ Now, to install agentic3d package, follow these steps:
     - Installing pyautogen (0.5.3)
 
     Installing the current project: agentic3d (0.1.0)
-```
+    ```
+
 
 3. You can check that a virtual environment has been created:
     ```bash
@@ -190,6 +193,7 @@ Now, to install agentic3d package, follow these steps:
     ```
     
 
+
 ## Run agentic3D using Jupyter Notebook in VSCode (recommended)
 
 It may be better to run this Jupyter Notebook in VSCode so you can easily see your rendered images and code. To do so, follow these steps.
@@ -199,21 +203,19 @@ It may be better to run this Jupyter Notebook in VSCode so you can easily see yo
     ❯ poetry run ipython kernel install --name "agentic3d-py3.11-env" --user
     ```
 
-1. Open VSCode, and navigate to your cloned directory. You should see a `.venv` directory. Ensure this is there so your virtual environment is set up.
+2. Open VSCode, and navigate to your cloned directory. You should see a `.venv` directory. Ensure this is there so your virtual environment is set up.
 
-2. Open `notebooks/interface.ipynb`
+3. Open `notebooks/interface.ipynb`
 
-3. Click `Select Kernel` on the top right corner.
+4. Click `Select Kernel` on the top right corner.
 
-4. Select `Jupter Kernel...`
+5. Select `Jupter Kernel...`
 
-5. Refresh by clicking on the circular button in top right corner.
+6. Refresh by clicking on the circular button in top right corner.
 
-6. Select your kernel! `agentic3d-py3.11-env`
+7. Select your kernel! `agentic3d-py3.11-env`
 
-7. Now, you should be able to run all the cells in the jupyter notebook. Follow instructions in the notebook for how to interact with the system.
-You can also open your outputs stored in models/ in OpenSCAD <https://openscad.org/> for more interactivity. Otherwise you can see your rendered images under renders/
-    ```
+8. Now, you should be able to run all the cells in the jupyter notebook. Follow instructions in the notebook for how to interact with the system. You can also open your outputs stored in models/ in OpenSCAD <https://openscad.org/> for more interactivity. Otherwise you can see your rendered images under renders/
 
 
 ## Usage
@@ -232,6 +234,7 @@ This project demonstrates the potential of LLMs as versatile agents for bridging
 
 1. This package utilizes the Autogen framework and currently with the chat-gpt-4o-mini model. Ensure your OPENAI_API_KEY is in your OS system path.
 2. If you are having trouble with the Jupyter kernel in VSCode. Make sure poetry is configured to recognize in project shells.
+
     ```bash
     > poetry config virtualenvs.in-project true
     ```
