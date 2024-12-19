@@ -1,6 +1,6 @@
 # Agentic3D
 
-## Project Abstract
+## Abstract
 
 This project investigates the application of Large Language Models (LLMs) as agents to bridge textual and visual modalities, focusing on the generation and refinement of 3D models from textual descriptions. Using OpenSCAD, a code-based 3D modeling platform, the system translates text into code, which is then rendered into visual representations for evaluation. A modality-switching feedback loop integrates Vision-Language Models (VLMs) to analyze these renderings, enabling iterative refinement of the generated models. The workflow is orchestrated using the Autogen framework, coordinating multiple specialized agents to ensure seamless interaction between components. Users can install this package to develop their own 3D models using our AI Agents. The structure is made so this can easily be imported as a python module and used interactively in Jupyter notebooks. Follow notebooks/interface.ipynb for an example.
 
