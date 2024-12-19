@@ -12,27 +12,24 @@ Frederik Stihler <frederik.stihler@berkeley.edu>
 
 ## Installation
 
-Before installing agentic3d, make sure you have `poetry` <https://python-poetry.org/docs> installed.
+Before installing agentic3d, make sure you have `poetry` <https://python-poetry.org/docs> installed:
 
-You can check this by running:
-
+- Check `poetry` version:
     ```bash
-    > poetry -V
-    Poetry (version 1.8.3)
+    poetry -V
     ```
-    
 
 Now, to install the `agentic3d` package, follow these steps:
 
 1. Clone the repository:
     ```bash
-    > git clone https://github.com/reetm09/agentic3d.git
-    > cd agentic3d/agentic3d
+    git clone https://github.com/reetm09/agentic3d.git
+    cd agentic3d/agentic3d
     ```
 
 2. Build virtual environment and install dependencies:
     ```bash
-    > poetry install
+    poetry install
     ```
 
     This is what the output should look like
@@ -181,15 +178,14 @@ Now, to install the `agentic3d` package, follow these steps:
 
 3. You can check that a virtual environment has been created:
     ```bash
-    > poetry env list
-    .venv (Activated)
+    poetry env list
     ```
 
 ## Run agentic3D using Jupyter Notebook
 
 4. Run Juptyer Notebook and navigate to `notebooks/interface.ipynb` as an example:
     ``` bash
-    > poetry run jupyter notebook notebooks/interface.ipynb
+    poetry run jupyter notebook notebooks/interface.ipynb
     ```
     
 
@@ -200,7 +196,7 @@ It may be better to run this Jupyter Notebook in VSCode so you can easily see yo
 
 1. Create an IPython kernel for your jupyter notebook. You can change the name to your preference:
     ``` bash
-    ❯ poetry run ipython kernel install --name "agentic3d-py3.11-env" --user
+    poetry run ipython kernel install --name "agentic3d-py3.11-env" --user
     ```
 
 2. Open VSCode, and navigate to your cloned directory. You should see a `.venv` directory. Ensure this is there so your virtual environment is set up.
@@ -236,5 +232,5 @@ This project demonstrates the potential of LLMs as versatile agents for bridging
 2. If you are having trouble with the Jupyter kernel in VSCode. Make sure poetry is configured to recognize in project shells.
 
     ```bash
-    > poetry config virtualenvs.in-project true
+    poetry config virtualenvs.in-project true
     ```
