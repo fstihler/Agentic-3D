@@ -14,48 +14,59 @@
 
     // Dynamic Model
     translate([0, 0, 0]) {
-    // Main body of the mug
+    // Cushioned Seat
     difference() {
-        // Outer mug with a wider base and slightly tapered top
-        cylinder(h = 85, r1 = 40, r2 = 32, center = true);
-        // Hollow interior of the mug
-        translate([0, 0, 2])
-            cylinder(h = 83, r1 = 38, r2 = 30, center = true);
+        translate([0, 0, 0]) 
+            linear_extrude(height=5) 
+                polygon(points=[[-40, 25], [40, 25], [40, -25], [-40, -25]]);
+        translate([0, 0, -1]) 
+            cube([80, 50, 8], center=true);
     }
-    
-    // Defining the rim with an overhang
-    translate([0, 0, 85]) {
-        difference() {
-            cylinder(h = 5, r = 41, center = true);
-            translate([0, 0, 1])
-                cylinder(h = 3, r = 39, center = true);
+
+    // Ergonomic Backrest
+    translate([0, -35, 5])
+        rotate([-15, 0, 0])
+        linear_extrude(height=18) 
+            polygon(points=[[-35, 0], [35, 0], [25, -45], [-25, -45]]);
+
+    // Stylish Armrests
+    for (x = [-35, 35]) {
+        translate([x, -15, 7]) {
+            rotate([0, 0, x > 0 ? 20 : -20])
+                linear_extrude(height=8) 
+                    polygon(points=[[3, 0], [30, -12], [30, -6], [3, 0]]);
         }
     }
-    
-    // Handle of the mug
-    translate([40, 0, 40]) {
-        rotate([90, 0, 0])
-        difference() {
-            // Comfortable, rounded handle
-            scale([1, 1.2, 1])
-            rotate_extrude(angle = 180)
-                translate([15, 0])
-                    circle(r = 12);
-                
-            // Hollowing out the handle
-            translate([-4, 0, -1])
-                scale([1, 1.2, 1])
-                rotate_extrude(angle = 180)
-                translate([15, 0])
-                    circle(r = 13);
+
+    // Tapered Legs
+    for (i = [-1, 1]) {
+        for (j = [-1, 1]) {
+            translate([i * 25, j * 22, -22]) {
+                rotate([0, 0, 0])
+                    linear_extrude(height=35) 
+                        polygon(points=[[0, 0], [-5, -15], [5, -15]]);
+            }
         }
     }
-    
-    // Adding texture detail to the body of the mug
-    for (i = [0 : 8]) {
-        rotate([0, 0, i * 10])
-        translate([0, 0, 10 + i * 8])
-        cylinder(h = 4, r = 38, center = true);
+
+    // Cross Support Structure
+    translate([0, 0, -22]) {
+        linear_extrude(height=4) 
+            polygon(points=[[-32, 18], [32, 18], [32, 14], [-32, 14]]);
+        rotate([0, 90, 0]) 
+            linear_extrude(height=4) 
+                polygon(points=[[-18, 32], [18, 32], [18, 28], [-18, 28]]);
+    }
+
+    // Seat Detail
+    translate([0, 0, 0]) {
+        difference() {
+            translate([0, 0, 1]) 
+                linear_extrude(height=4) 
+                    polygon(points=[[-32, 20], [32, 20], [32, -20], [-32, -20]]);
+            translate([0, 0, -1]) 
+                cube([64, 40, 10], center=true);
+        }
     }
 }
     

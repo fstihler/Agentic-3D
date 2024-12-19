@@ -14,32 +14,33 @@
 
     // Dynamic Model
     translate([0, 0, 0]) {
-    // Main body of the mug
+    // Chair Seat
     difference() {
-        // Create the outer body with a slightly wider lip
-        cylinder(h = 60, r = 40, center = true);
-        // Hollow out the inside of the mug
-        translate([0, 0, -1])
-        cylinder(h = 62, r = 38, center = true);
+        cube([60, 50, 5], center=true);
     }
-
-    // Adding a rim to the mug
-    translate([0, 0, 30]) {
-        cylinder(h = 2, r = 40, center = false);
-    }
-
-    // Handle of the mug
-    translate([40, 0, 15]) {
-        rotate([90, 0, 0])
-        difference() {
-            // Create a handle that has a slight curve
-            scale([1, 1.5, 1])
-            rotate([0, 0, 0])
-            cylinder(h = 20, r = 8, center = true);
-            
-            translate([-2, 0, -2])
-            scale([1, 1.3, 1])
-            cylinder(h = 24, r = 8.5, center = true);
+    
+    // Chair Backrest
+    translate([0, -25, 5])
+        rotate([5, 0, 0])
+        cube([60, 5, 35], center=true);
+    
+    // Stylish Armrests
+    translate([-30, 0, 10])
+        rotate([0, 0, 30])
+        scale([1, 0.5, 1])
+        cube([30, 5, 10], center=true);
+    translate([30, 0, 10])
+        rotate([0, 0, -30])
+        scale([1, 0.5, 1])
+        cube([30, 5, 10], center=true);
+    
+    // Tapered Chair Legs
+    for (x = [-20, 20]) {
+        for (y = [-20, 20]) {
+            translate([x, y, -10])
+                linear_extrude(height=15) {
+                    polygon(points=[[0, 0], [5, -10], [3, -10], [8, 0]]);
+                }
         }
     }
 }

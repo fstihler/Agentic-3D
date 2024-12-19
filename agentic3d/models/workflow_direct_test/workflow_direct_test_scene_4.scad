@@ -14,36 +14,68 @@
 
     // Dynamic Model
     translate([0, 0, 0]) {
-    // Main body of the mug as a cylinder
+    // Curved Chair Seat
     difference() {
-        // Create outer cylinder for the mug
-        cylinder(h = 60, r = 20, center = true);
-        // Hollow out the inside of the mug
-        translate([0, 0, 1])
-            cylinder(h = 60, r = 18, center = true);
+        hull() {
+            translate([-35, -30, 0]) circle(r=35);
+            translate([35, -30, 0]) circle(r=35);
+            translate([-35, 30, 0]) circle(r=35);
+            translate([35, 30, 0]) circle(r=35);
+        }
+        translate([0, 0, -5]) cube([70, 60, 10], center=true);
+    }
+    
+    // Taller Chair Backrest for Lumbar Support
+    translate([0, -50, 10])
+        rotate([-10, 0, 0])
+        scale([1, 1.5, 1])
+        hull() {
+            translate([-35, 0, 0]) circle(r=35);
+            translate([35, 0, 0]) circle(r=35);
+        }
+
+    // Curved Armrests
+    translate([-40, 0, 10]) {
+        rotate([0, 0, -30])
+        hull() {
+            translate([-10, 0, 0]) circle(r=10);
+            translate([0, -15, 0]) circle(r=10);
+            translate([-30, 0, 0]) circle(r=10);
+        }
+    }
+    
+    translate([40, 0, 10]) {
+        rotate([0, 0, 30])
+        hull() {
+            translate([-10, 0, 0]) circle(r=10);
+            translate([0, -15, 0]) circle(r=10);
+            translate([-30, 0, 0]) circle(r=10);
+        }
     }
 
-    // Thicker rim to delineate the opening of the mug
-    translate([0, 0, 60]) {
-        cylinder(h = 3, r = 22, center = true);
+    // Tapered Legs for a Sleek Look
+    for (x = [-30, 30]) {
+        for (y = [-25, 25]) {
+            translate([x, y, -20]) {
+                linear_extrude(height=25) {
+                    polygon(points=[[0, 0], [5, -15], [3, -15], [8, 0]]);
+                }
+            }
+        }
     }
-
-    // Handle of the mug
-    translate([20, 0, 30]) {
-        rotate([90, 0, 0])
-        difference() {
-            // Create a curved handle
-            scale([1, 1.5, 1])
-            rotate_extrude(angle = 180)
-                translate([8, 0])
-                    circle(r = 6);
-                
-            // Subtract to hollow out the handle
-            translate([-2, 0, -2])
-                scale([1, 1.3, 1])
-                rotate_extrude(angle = 180)
-                translate([8, 0])
-                    circle(r = 7);
+    
+    // Optional Cushioning
+    translate([0, 0, 5]) {
+        color("gray") {
+            difference() {
+                hull() {
+                    translate([-30, -25, 0]) circle(r=30);
+                    translate([30, -25, 0]) circle(r=30);
+                    translate([-30, 25, 0]) circle(r=30);
+                    translate([30, 25, 0]) circle(r=30);
+                }
+                translate([0, 0, -2]) cube([70, 60, 5], center=true);
+            }
         }
     }
 }

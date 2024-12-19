@@ -14,44 +14,61 @@
 
     // Dynamic Model
     translate([0, 0, 0]) {
-    // Main body of the mug with a wider base and tapered top
+    // Seat
     difference() {
-        // Create outer cylinder for the mug
-        cylinder(h = 80, r1 = 30, r2 = 25, center = true);
-        // Hollow out the inside of the mug
-        translate([0, 0, 1])
-            cylinder(h = 80, r1 = 27, r2 = 22, center = true);
+        translate([0, 0, 0]) 
+            linear_extrude(height=10) 
+                polygon(points=[[40, 20], [-40, 20], [-45, -30], [45, -30]]);
+        translate([0, 0, -5]) 
+            cube([90, 60, 10], center=true);
     }
 
-    // Thick rim to delineate the opening of the mug
-    translate([0, 0, 80]) {
-        cylinder(h = 6, r = 31, center = true);
-    }
+    // Curved Backrest with Contours
+    translate([0, -40, 10])
+        rotate([-10, 0, 0])
+        linear_extrude(height=10) 
+            polygon(points=[[38, 0], [-38, 0], [-30, -25], [30, -25]]);
 
-    // Handle of the mug
-    translate([25, 0, 40]) {
-        rotate([90, 0, 0])
-        difference() {
-            // Create a wider ergonomic handle
-            scale([1, 1.5, 1])
-            rotate_extrude(angle = 180)
-                translate([12, 0])
-                    circle(r = 10);
-                
-            // Subtract to hollow out the handle
-            translate([-2, 0, -2])
-                scale([1, 1.3, 1])
-                rotate_extrude(angle = 180)
-                translate([12, 0])
-                    circle(r = 11);
+    // Rounded Armrests
+    for (x = [-40, 40]) {
+        translate([x, 0, 10]) {
+            rotate([0, 0, x > 0 ? 10 : -10])
+                linear_extrude(height=10) 
+                    polygon(points=[[5, 0], [30, -10], [30, -5], [5, 0]]);
         }
     }
 
-    // Adding texture detail to the body of the mug
-    for (i = [0 : 4]) {
-        rotate([0, 0, i * 15])
-        translate([0, 0, i * 16])
-        cylinder(h = 6, r1 = 22, r2 = 22, center = true);
+    // Tapered Legs
+    for (x = [-25, 25]) {
+        for (y = [-20, 20]) {
+            translate([x, y, -20]) {
+                linear_extrude(height=30) {
+                    polygon(points=[[0, 0], [4, -8], [2, -8], [8, 0]]);
+                }
+            }
+        }
+    }
+
+    // Cross Support for Stability
+    translate([0, 0, -20]) {
+        rotate([0, 0, 0]) {
+            linear_extrude(height=5) 
+                polygon(points=[[-30, 15], [30, 15], [30, 5], [-30, 5]]);
+            rotate([0, 90, 0]) 
+                linear_extrude(height=5) 
+                    polygon(points=[[-15, 30], [15, 30], [15, 20], [-15, 20]]);
+        }
+    }
+
+    // Under-Seat Cutout Design
+    translate([0, 0, 0]) {
+        difference() {
+            translate([0, 0, 1]) 
+                linear_extrude(height=9) 
+                    polygon(points=[[-18, 5], [-18, -5], [18, -5], [18, 5]]);
+            translate([0, 0, -1]) 
+                cube([36, 12, 10], center=true);
+        }
     }
 }
     

@@ -14,53 +14,60 @@
 
     // Dynamic Model
     translate([0, 0, 0]) {
-    // Main body of the mug
+    // Cushioned and Contoured Seat
     difference() {
-        // Outer mug with a wider and rounded body
-        cylinder(h = 80, r = 40, center = true);
-        // Hollow interior of the mug
-        translate([0, 0, 2])
-            cylinder(h = 78, r = 38, center = true);
-    }
-    
-    // Defining the rim with an overhang
-    translate([0, 0, 80]) {
-        difference() {
-            cylinder(h = 5, r = 41, center = true);
-            translate([0, 0, 1])
-                cylinder(h = 3, r = 39, center = true);
-        }
-    }
-    
-    // Handle of the mug
-    translate([40, 0, 35]) {
-        rotate([90, 0, 0])
-        difference() {
-            // Ergonomic handle design
-            scale([1, 1.2, 1])
-            rotate_extrude(angle = 180)
-                translate([12, 0])
-                    circle(r = 10);
-                
-            // Hollowing out the handle
-            translate([-2, 0, -1])
-                scale([1, 1.2, 1])
-                rotate_extrude(angle = 180)
-                translate([12, 0])
-                    circle(r = 11);
-        }
-    }
-    
-    // Adding texture detail to the body of the mug
-    for (i = [0 : 8]) {
-        rotate([0, 0, i * 10])
-        translate([0, 0, 10 + i * 8])
-        cylinder(h = 3, r = 37, center = true);
+        translate([0, 0, 0]) 
+            linear_extrude(height=5) 
+                polygon(points=[[-40, 25], [40, 25], [30, -20], [-30, -20]]);
+        translate([0, 0, -1]) 
+            cube([80, 50, 8], center=true);
     }
 
-    // Stabilizing the base
-    translate([0, 0, -2]) {
-        cylinder(h = 2, r = 38, center = true);
+    // Ergonomic Backrest with Curves
+    translate([0, -35, 5])
+        rotate([-20, 0, 0])
+        linear_extrude(height=18) 
+            polygon(points=[[-30, 0], [30, 0], [20, -50], [-20, -50]]);
+    
+    // Stylized Armrests
+    for (x = [-35, 35]) {
+        translate([x, -15, 10]) {
+            rotate([0, 0, x > 0 ? 20 : -20])
+                linear_extrude(height=10) 
+                    offset(r=2) 
+                    polygon(points=[[3, 0], [30, -10], [30, -6], [3, 0]]);
+        }
+    }
+
+    // Tapered and Splayed Legs
+    for (i = [-1, 1]) {
+        for (j = [-1, 1]) {
+            translate([i * 25, j * 22, -22]) {
+                rotate([0, 0, 0])
+                    linear_extrude(height=30) 
+                        polygon(points=[[0, 0], [-5, -15], [5, -15]]);
+            }
+        }
+    }
+
+    // Cross Support Structure
+    translate([0, 0, -22]) {
+        linear_extrude(height=4) 
+            polygon(points=[[-30, 16], [30, 16], [30, 12], [-30, 12]]);
+        rotate([0, 90, 0]) 
+            linear_extrude(height=4) 
+                polygon(points=[[-16, 30], [16, 30], [16, 26], [-16, 26]]);
+    }
+
+    // Seat Detail with Textural Indent
+    translate([0, 0, 0]) {
+        difference() {
+            translate([0, 0, 2]) 
+                linear_extrude(height=4) 
+                    polygon(points=[[-30, 18], [30, 18], [30, -18], [-30, -18]]);
+            translate([0, 0, -1]) 
+                cube([60, 36, 10], center=true);
+        }
     }
 }
     
